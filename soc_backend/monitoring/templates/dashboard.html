@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Alerts Dashboard</title>
+    <script>
+        var socket = new WebSocket("ws://127.0.0.1:8000/ws/alerts/");
+
+        socket.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            var alertBox = document.getElementById("alerts");
+            var newAlert = document.createElement("p");
+            newAlert.textContent = data.message;
+            alertBox.prepend(newAlert);
+        };
+    </script>
+</head>
+<body>
+    <h1>Real-Time Security Alerts</h1>
+    <div id="alerts"></div>
+</body>
+</html>

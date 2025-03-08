@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',  # Enable CORS for frontend 
     'monitoring',  # Monitoring app
+    'channels',  # Channels for WebSockets
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend
@@ -54,6 +56,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+# Celery Configuration
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,7 +77,7 @@ ROOT_URLCONF = 'soc_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':[os.path.join(BASE_DIR, "template")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +91,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'soc_backend.wsgi.application'
+ASGI_APPLICATION = 'soc_backend.asgi.application'
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

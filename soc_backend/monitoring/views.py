@@ -3,6 +3,9 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Log, Threat, Alert
 from .serializers import LogSerializer, ThreatSerializer, AlertSerializer
 
+from django.shortcuts import render
+
+
 class LogViewSet(viewsets.ModelViewSet):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
@@ -17,3 +20,6 @@ class AlertViewSet(viewsets.ModelViewSet):
     queryset = Alert.objects.all()
     serializer_class = AlertSerializer
     permission_classes = [IsAuthenticated]
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
