@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',  # Enable CORS for frontend 
     'monitoring',  # Monitoring app
     'channels',  # Channels for WebSockets
+    'django_celery_beat',  # Celery Beat for periodic tasks
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend
