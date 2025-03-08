@@ -60,6 +60,8 @@ REST_FRAMEWORK = {
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
 
 
 MIDDLEWARE = [
@@ -95,7 +97,10 @@ ASGI_APPLICATION = 'soc_backend.asgi.application'
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "BACKEND": "channels.layers.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],  # Make sure Redis is running
+        },
     },
 }
 
