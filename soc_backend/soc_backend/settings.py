@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     'django_celery_beat',  # Celery Beat for periodic tasks
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React frontend
+    "http://localhost:5173",  # Vite (React)
+    "http://localhost:3000",  # CRA (React)
 ]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -73,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # Enable CORS for frontend
 ]
 
 ROOT_URLCONF = 'soc_backend.urls'

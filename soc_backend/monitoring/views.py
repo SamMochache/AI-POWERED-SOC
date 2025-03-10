@@ -27,8 +27,6 @@ class AlertViewSet(viewsets.ModelViewSet):
     serializer_class = AlertSerializer
     permission_classes = [IsAuthenticated]
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
 
 def alert_data(request):
     last_24_hours = now() - timedelta(hours=24)
